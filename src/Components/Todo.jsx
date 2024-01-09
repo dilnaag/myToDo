@@ -8,27 +8,39 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import CommentIcon from '@mui/icons-material/Comment';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { deleteTodo, toggleDone } from '../util';
+import CreateIcon from '@mui/icons-material/Create';
+
 
 export const Todo=({id,descr,done})=> {
-  
+  console.log(id);
         return (
           <ListItem
             key={id}
             secondaryAction={
-              <IconButton edge="end" aria-label="comments">
+              <>
+              <IconButton edge="end" aria-label="comments"
+                onClick={()=>deleteTodo(id)}>
                 <DeleteForeverIcon sx={{color:"red"}} />
               </IconButton>
+
+              <IconButton edge="end" aria-label="comments">
+              
+              <CreateIcon sx={{color:"blue"}} />
+              </IconButton>
+            </>
             }
             disablePadding
           >
-            <ListItemButton role={undefined} dense>
+            <ListItemButton role={undefined} dense
+              onClick={()=>toggleDone(id,!done)}>
               <ListItemIcon>
                 <Checkbox
                   edge="start"
                   checked={done}
                   tabIndex={-1}
                   disableRipple
-                  inputProps={{ 'aria-labelledby': id }}
+                  inputProps={{ 'aria-labelledby': id }}                  
                 />
               </ListItemIcon>
               <ListItemText id={id} primary={descr} />

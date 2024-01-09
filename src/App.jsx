@@ -1,22 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React ,{ useEffect } from 'react'
 import './App.css'
-import { useEffect } from 'react'
 
-
+import { useState } from 'react'
 import { Todos } from './Components/Todos'
+import { Login } from './Components/login'
+import { getCurrentUser, signOutUser } from './util'
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function App() {
   const [user,setUser]=useState(null)
   
-  
+  getCurrentUser(setUser)
 
+  console.log(user);
   return (
     
-      <div>
-        <h1>ToDo</h1>
-        <Todos />
+      <div className='app'>
+        <h1 >My ToDo</h1>
+        {user && <LogoutIcon 
+        sx={{width:"100%",cursor:"pointer",color:"red"}}
+        onClick={()=>signOutUser()}/>}
+        {user==null ? <Login/> : <Todos />}
+       
       </div>
   
   )
