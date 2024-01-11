@@ -10,11 +10,15 @@ import CommentIcon from '@mui/icons-material/Comment';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { deleteTodo, toggleDone } from '../util';
 import CreateIcon from '@mui/icons-material/Create';
+import { EditTodo } from './EditTodo';
 
 
 export const Todo=({id,descr,done})=> {
+  const [open, setOpen] = React.useState(false);
+
   console.log(id);
         return (
+          <>
           <ListItem
             key={id}
             secondaryAction={
@@ -24,7 +28,9 @@ export const Todo=({id,descr,done})=> {
                 <DeleteForeverIcon sx={{color:"red"}} />
               </IconButton>
 
-              <IconButton edge="end" aria-label="comments">
+              <IconButton edge="end" aria-label="comments"
+                onClick={()=>setOpen(true)}
+              >
               
               <CreateIcon sx={{color:"blue"}} />
               </IconButton>
@@ -46,6 +52,8 @@ export const Todo=({id,descr,done})=> {
               <ListItemText id={id} primary={descr} />
             </ListItemButton>
           </ListItem>
+          {open && <EditTodo open={open} setOpen={setOpen} id={id} descr={descr}/>}
+          </>
         );
       }
     
